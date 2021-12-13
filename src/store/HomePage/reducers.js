@@ -1,11 +1,12 @@
 import {
+	RESET_USERS,
 	SET_USERS_FAIL,
 	SET_USERS_REQUESTED,
 	SET_USERS_SUCCESS,
 } from './constants';
 
 const INITIAL_STATE = {
-	users: ['No users!'],
+	users: [],
 	loading: false,
 	error: null,
 };
@@ -27,6 +28,12 @@ const homePageReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				error: action.payload,
+				loading: false,
+			};
+		case RESET_USERS:
+			return {
+				...state,
+				users: [],
 				loading: false,
 			};
 		default:

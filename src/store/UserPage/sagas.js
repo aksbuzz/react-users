@@ -13,7 +13,7 @@ const fetchUserDetails = async userID =>
 		.then(response => response.data.data)
 		.catch(e => e);
 
-function* fetchUserSaga(action) {
+function* fetchUserSaga(action = {}) {
 	try {
 		const data = yield call(fetchUserDetails, action.payload);
 		yield put({ type: SET_USER_SUCCESS, payload: data });

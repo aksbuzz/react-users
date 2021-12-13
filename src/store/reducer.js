@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
+import addUserReducer from './AddUserPage/reducers';
 import homePageReducer from './HomePage/reducers';
 import userPageReducer from './UserPage/reducers';
 
 const rootReducerMain = combineReducers({
 	homePageState: homePageReducer,
 	userPageState: userPageReducer,
+	addUserPageState: addUserReducer,
 });
 
 const rootReducer = (state, action) => {

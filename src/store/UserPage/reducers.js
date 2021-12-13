@@ -1,5 +1,6 @@
 import {
 	GET_USER_DETAILS,
+	RESET_USER,
 	SET_USER_FAIL,
 	SET_USER_REQUESTED,
 	SET_USER_SUCCESS,
@@ -33,7 +34,13 @@ const userPageReducer = (state = INITIAL_STATE, action) => {
 		case GET_USER_DETAILS:
 			return {
 				...state,
-				userID: action.payload,
+				// userID: action.payload,
+			};
+		case RESET_USER:
+			return {
+				...state,
+				user: [],
+				loading: false,
 			};
 		default:
 			return state;

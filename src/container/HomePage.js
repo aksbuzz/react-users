@@ -5,7 +5,7 @@ import {
 	ListItem,
 	ListItemAvatar,
 	ListItemText,
-} from '@mui/material';
+} from '@material-ui/core';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -17,9 +17,9 @@ import {
 } from '../store/HomePage/selectors';
 
 const App = (props = {}) => {
-	const { users, setUser, loading, error, clearUser } = props;
+	const { users = [], setUser, loading, error } = props;
 	useEffect(() => {
-		clearUser();
+		// clearUser();
 		setUser();
 
 		// eslint-disable-next-line
@@ -29,26 +29,28 @@ const App = (props = {}) => {
 		<>
 			{loading && <p>Loading...</p>}
 			{error && !loading && <p>{error}</p>}
-			<Container maxWidth='sm'>
-				<List
-					sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
-				>
-					{users &&
-						users.length > 0 &&
-						users.map(user => (
-							<Link to={`user/${Number(user.id)}`}>
-								<ListItem key={Number(user.id)}>
-									<ListItemAvatar>
-										<Avatar scr={user.avatar} />
-									</ListItemAvatar>
-									<ListItemText
-										primary={user.first_name + ' ' + user.last_name}
-									/>
-								</ListItem>
-							</Link>
-						))}
-				</List>
-			</Container>
+			{!loading && (
+				<Container maxWidth='sm'>
+					<List
+						sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+					>
+						{users &&
+							users.length > 0 &&
+							users.map(user => (
+								<Link to={`user/${Number(user.id)}`}>
+									<ListItem key={Number(user.id)}>
+										<ListItemAvatar>
+											<Avatar scr={user.avatar} />
+										</ListItemAvatar>
+										<ListItemText
+											primary={user.first_name + ' ' + user.last_name}
+										/>
+									</ListItem>
+								</Link>
+							))}
+					</List>
+				</Container>
+			)}
 		</>
 	);
 };
@@ -60,8 +62,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	setUser: users => dispatch(setUsers(users)),
-	clearUser: () => dispatch({ type: 'RESET_GLOBAL_STATE' }),
+	setUser: () => dispatch(setUsers()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
